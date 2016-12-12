@@ -94,13 +94,13 @@ uint64_t segment_tree::update_r(uint32_t arr_start_idx, uint32_t arr_end_idx, ui
 		seg_tree[current_idx] = value;
 		return diff;
 	}
-	else if (index <= middle) //update index falls on the left
+	else if (index <= middle) //update index falls on the left tree
 	{
 		uint32_t diff = update_r(arr_start_idx, middle, 2 * current_idx + 1, index, value);
 		seg_tree[current_idx] += diff;
 		return diff;
 	}
-	else if (index > middle) //update index falls on the right
+	else if (index > middle) //update index falls on the right tree
 	{
 		uint32_t diff = update_r(middle + 1, arr_end_idx, 2 * current_idx + 2, index, value);
 		seg_tree[current_idx] += diff;
