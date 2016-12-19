@@ -2,32 +2,30 @@
 
 #include<vector>
 #include<string>
+#include<iostream>
 
 using namespace std;
+const uint32_t ALPHABET_SZ = 26;
 
 class trie_node
 {
-	char c;
-	bool valid;
-
-	vector<trie_node*> children;
 public:
-	trie_node(char ch)
+	bool valid;
+	vector<trie_node*> children;
+
+	trie_node()
 	{
-		c = ch;
 		valid = false;
+		trie_node* temp = NULL;
+		for (size_t i = 0; i < ALPHABET_SZ; i++)
+		{
+			children.push_back(temp);
+		}
 	}
 
-	trie_node* get(char c)
+	void set_char(char c, trie_node* child)
 	{
-		for (size_t i = 0; i < children.size(); i++)
-		{
-			if (children[i]->c == c)
-			{
-				return children[i];
-			}
-		}
-		return NULL;
+		children[c - 'a'] = child;
 	}
 };
 
@@ -35,24 +33,18 @@ class trie
 {
 	trie_node root;
 
-	void add_string_r(string s, trie_node* node)
-	{
-		trie_node* next_child = node->get(s[0]);
-		if (next_child == NULL)
-		{
-			
-		}
-		else
-		{
-
-		}
-	}
+	void add_string_r(string s, trie_node* node);
+	void print_strings_r(trie_node* node, string s);
 
 public:
-	void add_string(string s);
+	void add_string(string s)
 	{
-		add_string_r(string s, trie_node* node);
+		add_string_r(s, &root);
 	}
 	void remove_string(string s);
 	bool is_present(string s);
+	void print_strings()
+	{
+		print_strings_r(&root, "");
+	}
 };

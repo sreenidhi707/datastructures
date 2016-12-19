@@ -9,6 +9,7 @@
 int main()
 {
 	trie T;
+	T.add_string("she");
 
 
 }
