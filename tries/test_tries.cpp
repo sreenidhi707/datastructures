@@ -10,7 +10,9 @@ int main()
 {
 	trie T;
 	T.add_string("she");
+	T.add_string("by");
 
+	T.print_strings();
 
 }
 
