@@ -1,7 +1,4 @@
 #pragma once
-
-#include <iostream>
-#include <fstream>
 #include <vector>
 
 class Node
@@ -22,6 +19,7 @@ class Graph
   int numEdges;
   std::vector<Node*> adj;
   
+  void addEdgePrivate(int src, int dst);
  public:
   int V();
   int E();
@@ -30,27 +28,5 @@ class Graph
   void addEdge(int src, int dst);
 };
 
-void main()
-{
-	std::cout << "Starting to run program" << std::endl;
-	
-	std::string fileName("filename.txt");
-	std::ifstream file;
-	file.open(fileName);
 
-	Graph g;
-
-	int v = -1, e = -1, srcV = -1, dstV = -1;
-	file >> v;
-	file >> e;
-
-	g.V(v);
-	g.E(e);
-	while(e--)
-	{
-		file >> srcV;
-		file >> dstV;
-		g.addEdge(srcV, dstV);
-	}
-}
 
