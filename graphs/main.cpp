@@ -5,24 +5,23 @@
 
 void main()
 {
-	std::cout << "Starting to run program" << std::endl;
+  std::cout << "Starting to run program" << std::endl;
 
-	std::string fileName("filename.txt");
-	std::ifstream file;
-	file.open(fileName);
+  std::string fileName("filename.txt");
+  std::ifstream file;
+  file.open(fileName);
 
-	Graph g;
+  Graph g;
 
-	int v = -1, e = -1, srcV = -1, dstV = -1;
-	file >> v;
-	file >> e;
+  int v = -1, e = -1, srcV = -1, dstV = -1;
+  file >> v;
+  file >> e;
 
-	g.V(v);
-	g.E(e);
-	while (e--)
-	{
-		file >> srcV;
-		file >> dstV;
-		g.addEdge(srcV, dstV);
-	}
+  g.V(v);
+  while (e--)
+  {
+    file >> srcV;
+    file >> dstV;
+    g.addEdge(srcV, dstV);
+  }
 }

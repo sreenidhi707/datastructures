@@ -1,50 +1,145 @@
+#include <iostream>
+#include <stack>
+#include <queue>
 #include "graph.h"
-
-void Graph::addEdgePrivate(int src, int dst)
-{
-	//Get the node corresponding to the source
-	Node* node = adj[src];
-
-	//Run till the last node
-	while (node->next != NULL)
-	{
-		node = node->next;
-	}
-
-	//Now, node is pointing to the last node in the list
-	Node* d = new Node(dst);
-	node->next = d;
-}
 
 int Graph::V()
 {
-  return numVertices;
+  return v;
 }
 
-int Graph::E()
+void Graph::V(int _v)
 {
-  return numEdges;
-}
-
-void Graph::V(int v)
-{
-  numVertices = v;
+  v = _v;
 
   //Create the adjacency list
   for (size_t i = 0; i < v; i++)
   {
-	  adj.push_back(new Node(i));
+    adj.push_back(new Node(i));
   }
 }
 
-void Graph::E(int e)
+int Graph::E()
 {
-  numEdges = e;
+  return e;
+}
+
+void Graph::addEdgePrivate(int src, int dst)
+{
+  //Get the node corresponding to the source
+  Node* node = adj[src];
+  
+  //Run till the last node
+  while (node->next != NULL)
+  {
+    node = node->next;
+  }
+  
+  //Now, node is pointing to the last node in the list
+  Node* d = new Node(dst);
+  node->next = d;
 }
 
 void Graph::addEdge(int src, int dst)
 {
-	//For undirected graph, every edge is represented twice in the adjacency list
-	addEdgePrivate(src, dst);
-	addEdgePrivate(dst, src);
+  //For undirected graph, every edge is represented twice in the adjacency list
+  addEdgePrivate(src, dst);
+  addEdgePrivate(dst, src);
+}
+
+void printVisitedNodes(Graph* g) 
+{
+  for (auto node : g->adj)
+  {
+    std::cout << "Node:" << node->val << ":" << std::endl;
+    while (node != NULL)
+    {
+      if (node->visited)
+      {
+        std::cout << node->val << "--";
+      }
+      node = node->next;
+    }
+    std::cout << std::endl;
+  }
+}
+
+void dfsIterative(Graph* g, Node* _node)
+{
+  std::stack<Node*> nodes;
+  nodes.push(_node);
+
+  while (!nodes.empty())
+  {
+    Node* node = nodes.top();
+    node->visited = true;
+
+    node = node->next;
+    nodes.pop();
+    while (node != NULL)
+    {
+      if (!node->visited)
+      {
+        nodes.push(node);
+      }
+      node = node->next;
+    }
+  }
+}
+
+void dfsIterativeAll(Graph* g)
+{
+  for (auto* node : g->adj)
+  {
+    dfsIterative(g, node);
+  }
+}
+
+void dfsRecursive(Graph* g, Node* node)
+{
+  if (!node->visited)
+  {
+    node->visited = true;
+    
+    Node* nextNode = g->adj[node->val]->next;
+    while (nextNode != NULL)
+    {
+      dfsRecursive(g, nextNode);
+    }
+  }
+  else
+  {
+    return;
+  }
+}
+
+void dfsRecursiveAll(Graph* g)
+{
+  for (auto* node : g->adj)
+  {
+    dfsRecursive(g, node);
+  }
+}
+
+void bfsIterative(Graph* g, Node* node)
+{
+  std::queue<Node*> nodes;
+  nodes.push(node);
+
+  while (!nodes.empty())
+  {
+    Node* node = nodes.front();
+    node->visited = true;
+
+    while (node != NULL)
+    {
+      if (!node->visited)
+      {
+        nodes.push(node);
+      }
+      node = node->next;
+    }
+
+    nodes.pop();
+  }
 }
