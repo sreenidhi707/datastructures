@@ -143,3 +143,11 @@ void bfsIterative(Graph* g, Node* node)
     nodes.pop();
   }
 }
+
+void bfsIterativeAll(Graph* g)
+{
+  for (auto* node : g->adj)
+  {
+    bfsIterative(g, node);
+  }
+}
