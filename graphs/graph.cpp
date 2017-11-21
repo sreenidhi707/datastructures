@@ -45,6 +45,9 @@ void Graph::addEdge(int src, int dst)
   //For undirected graph, every edge is represented twice in the adjacency list
   addEdgePrivate(src, dst);
   addEdgePrivate(dst, src);
+
+  e++; //Increment edge count only once
+  std::cout << "Graph::addEdge():: Added edge " << src << " <--> " << dst << std::endl;
 }
 
 void printVisitedNodes(Graph* g) 
@@ -61,6 +64,24 @@ void printVisitedNodes(Graph* g)
       node = node->next;
     }
     std::cout << std::endl;
+  }
+}
+
+void printGraph(Graph* g)
+{
+  std::cout << "Printing graph" << std::endl;
+  std::cout << "V:" << g->V() << std::endl;
+  std::cout << "E:" << g->E() << std::endl;
+
+  for (auto& node : g->adj)
+  {
+    Node* n = node;
+    while (n)
+    {
+      std::cout << n->val << "-->";
+      n = n->next;
+    }
+    std::cout << "NULL" << std::endl;
   }
 }
 

@@ -47,6 +47,7 @@ private:
 
 //Functions which perform operations on Graph class
 void printVisitedNodes(Graph* g);
+void printGraph(Graph* g);
 
 void dfsIterative(Graph* g, Node* node);
 void dfsIterativeAll(Graph* g);
